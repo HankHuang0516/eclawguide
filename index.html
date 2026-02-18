@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>免費白嫖 OpenClaw！E-Claw 官方 Bot 使用教學</title>
+    <title>OpenClaw 免費使用教學 — 透過 E-Claw App 設定指南</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,466 +14,225 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --primary: #FF6B35;
-            --secondary: #F7931E;
-            --dark: #1a1a2e;
-            --accent: #00D9FF;
-            --light: #f8f9fa;
-            --shadow: rgba(0, 0, 0, 0.1);
-        }
-
         body {
-            font-family: 'Noto Sans TC', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: var(--dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        .noise {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            opacity: 0.03;
-            z-index: 1;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background: #fff;
+            color: #222;
+            line-height: 1.8;
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 680px;
             margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 2;
+            padding: 40px 20px 60px;
         }
 
         header {
-            text-align: center;
-            padding: 60px 20px 40px;
-            animation: fadeInDown 0.8s ease-out;
+            margin-bottom: 32px;
+            border-bottom: 1px solid #e0e0e0;
+            padding-bottom: 24px;
         }
 
-        h1 {
-            font-family: 'Bebas Neue', cursive;
-            font-size: clamp(2.5rem, 8vw, 5rem);
-            color: white;
-            text-shadow: 4px 4px 0px rgba(0, 0, 0, 0.2);
-            letter-spacing: 2px;
-            margin-bottom: 10px;
-            line-height: 1.1;
-        }
-
-        .subtitle {
-            font-size: clamp(1rem, 3vw, 1.5rem);
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 400;
-            margin-bottom: 20px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: var(--accent);
-            color: var(--dark);
-            padding: 8px 20px;
-            border-radius: 50px;
+        header h1 {
+            font-size: 1.75rem;
             font-weight: 700;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 4px 15px rgba(0, 217, 255, 0.4);
-            animation: pulse 2s infinite;
+            color: #111;
+            line-height: 1.4;
+            margin-bottom: 8px;
         }
 
-        .intro {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            margin: 30px 0;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 0.8s ease-out 0.2s both;
+        .meta {
+            font-size: 0.85rem;
+            color: #888;
         }
 
-        .intro h2 {
-            font-family: 'Bebas Neue', cursive;
-            font-size: 2rem;
-            color: var(--primary);
-            margin-bottom: 15px;
-            letter-spacing: 1px;
-        }
-
-        .intro p {
-            font-size: 1.1rem;
-            color: #555;
-            margin-bottom: 15px;
-        }
-
-        .highlight {
-            background: linear-gradient(120deg, var(--secondary) 0%, var(--primary) 100%);
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
+        article h2 {
+            font-size: 1.3rem;
             font-weight: 700;
+            color: #111;
+            margin-top: 40px;
+            margin-bottom: 12px;
         }
 
-        .steps {
-            margin: 40px 0;
-        }
-
-        .step {
-            background: white;
-            border-radius: 20px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
-            position: relative;
-            overflow: hidden;
-            animation: fadeInUp 0.8s ease-out both;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .step:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .step:nth-child(1) { animation-delay: 0.3s; }
-        .step:nth-child(2) { animation-delay: 0.4s; }
-        .step:nth-child(3) { animation-delay: 0.5s; }
-        .step:nth-child(4) { animation-delay: 0.6s; }
-        .step:nth-child(5) { animation-delay: 0.7s; }
-        .step:nth-child(6) { animation-delay: 0.8s; }
-
-        .step::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-        }
-
-        .step-number {
-            display: inline-block;
-            font-family: 'Bebas Neue', cursive;
-            font-size: 3rem;
-            color: var(--primary);
-            font-weight: 900;
-            margin-right: 15px;
-            text-shadow: 2px 2px 0px rgba(255, 107, 53, 0.2);
-            line-height: 1;
-        }
-
-        .step h3 {
-            font-size: 1.5rem;
-            color: var(--dark);
-            margin-bottom: 15px;
-            display: inline-block;
-            vertical-align: top;
-            margin-top: 10px;
-        }
-
-        .step p {
-            color: #666;
+        article p {
             font-size: 1rem;
-            margin-bottom: 20px;
-            padding-left: 0;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        article a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        article a:hover {
+            text-decoration: underline;
+        }
+
+        article strong {
+            font-weight: 700;
+        }
+
+        .step-heading {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #111;
+            margin-top: 32px;
+            margin-bottom: 8px;
         }
 
         .step-image {
             width: 100%;
-            max-width: 400px;
-            border-radius: 15px;
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-            margin: 20px auto;
+            max-width: 360px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin: 16px 0;
             display: block;
-            transition: transform 0.3s ease;
         }
 
-        .step-image:hover {
-            transform: scale(1.05);
+        .note {
+            background: #f7f7f7;
+            border-left: 3px solid #666;
+            padding: 12px 16px;
+            margin: 16px 0;
+            font-size: 0.92rem;
+            color: #444;
+            border-radius: 0 4px 4px 0;
         }
 
-        .tip {
-            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
-            border-left: 5px solid var(--primary);
-            padding: 20px;
-            border-radius: 10px;
-            margin: 20px 0;
-            font-size: 0.95rem;
+        .warning {
+            background: #fff8f0;
+            border-left: 3px solid #e67e22;
+            padding: 12px 16px;
+            margin: 16px 0;
+            font-size: 0.92rem;
+            color: #444;
+            border-radius: 0 4px 4px 0;
         }
 
-        .tip strong {
-            color: var(--primary);
-            display: block;
-            margin-bottom: 5px;
-            font-size: 1.1rem;
+        .tips-list {
+            margin: 16px 0;
+            padding-left: 24px;
+            color: #333;
         }
 
-        .success {
-            background: white;
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
+        .tips-list li {
+            margin-bottom: 6px;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid #e0e0e0;
             margin: 40px 0;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 0.8s ease-out 0.9s both;
-        }
-
-        .success h2 {
-            font-family: 'Bebas Neue', cursive;
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 20px;
-            letter-spacing: 1px;
-        }
-
-        .success-icon {
-            font-size: 4rem;
-            margin-bottom: 20px;
-            animation: bounce 1s infinite;
-        }
-
-        .cta {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 15px 40px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 700;
-            font-size: 1.1rem;
-            margin-top: 20px;
-            box-shadow: 0 10px 30px rgba(255, 107, 53, 0.4);
-            transition: all 0.3s ease;
-        }
-
-        .cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(255, 107, 53, 0.6);
         }
 
         footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: white;
-            font-size: 0.9rem;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 20px;
+            margin-top: 40px;
+            font-size: 0.82rem;
+            color: #999;
         }
 
-        footer a {
-            color: var(--accent);
-            text-decoration: none;
-            font-weight: 700;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-
-        @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-            }
-            50% {
-                transform: scale(1.05);
-            }
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-10px);
-            }
-        }
-
-        @media (max-width: 768px) {
-            .intro, .step, .success {
-                padding: 25px;
+        @media (max-width: 600px) {
+            .container {
+                padding: 24px 16px 40px;
             }
 
-            .step-number {
-                font-size: 2rem;
-                display: block;
-                margin-bottom: 10px;
-            }
-
-            .step h3 {
-                display: block;
-                margin-top: 0;
+            header h1 {
+                font-size: 1.4rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="noise"></div>
-    
     <div class="container">
         <header>
-            <h1>🦞 免費白嫖 OpenClaw！</h1>
-            <p class="subtitle">E-Claw 官方 Bot 使用教學</p>
-            <span class="badge">100% 免費</span>
+            <h1>如何免費使用 OpenClaw — E-Claw App 設定教學</h1>
+            <p class="meta">2026 年 2 月 ｜ 圖文教學</p>
         </header>
 
-        <div class="intro">
-            <h2>什麼是 OpenClaw？</h2>
-            <p>OpenClaw 是一個強大的 AI 語言模型，而 <span class="highlight">E-Claw</span> 這款 App 提供了免費使用的管道！</p>
-            <p>透過 E-Claw 的「官方 Bot 租用」功能，你可以免費使用搭載 <span class="highlight">MiniMax 2.1</span> 模型的 AI 助手，每天有 15 則訊息的額度，完全不需要付費！</p>
-        </div>
+        <article>
+            <h2>OpenClaw 是什麼？</h2>
+            <p>OpenClaw 是一個 AI Agent，可以理解為一個能夠自主執行任務的 AI 助手，而不只是單純的語言模型。透過 <strong>E-Claw</strong> 這款 App，你可以免費使用 OpenClaw 提供的功能。</p>
+            <p>具體來說，E-Claw 的「官方 Bot 租用」功能提供了一個免費方案，搭載 <strong>MiniMax 2.1</strong> 模型，每天有 15 則訊息的額度。以下是完整的設定流程。</p>
 
-        <div class="steps">
-            <div class="step">
-                <span class="step-number">01</span>
-                <h3>下載 E-Claw App</h3>
-                <p>前往 Google Play Store 搜尋「<strong>e-claw</strong>」，下載並安裝 E-Claw 電子蝦桌布 (OpenClaw) 應用程式。</p>
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Google Play Store 搜尋 E-Claw" class="step-image" id="img1">
-                <div class="tip">
-                    <strong>💡 小提示</strong>
-                    文末有下載連結~
-                </div>
-            </div>
+            <hr>
 
-            <div class="step">
-                <span class="step-number">02</span>
-                <h3>打開 App 並往下滑</h3>
-                <p>安裝完成後，打開 E-Claw App，在主畫面往下滑動，找到「<strong>官方 Bot 租用</strong>」按鈕並點擊。</p>
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="E-Claw 主畫面" class="step-image" id="img2">
-            </div>
+            <h2>設定步驟</h2>
 
-            <div class="step">
-                <span class="step-number">03</span>
-                <h3>選擇免費版</h3>
-                <p>進入租用頁面後，你會看到兩個選項：免費版和月租版。選擇「<strong>免費版</strong>」並點擊「<strong>使用免費版</strong>」按鈕。</p>
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="選擇免費版" class="step-image" id="img3">
-                <div class="tip">
-                    <strong>🎯 免費版特色</strong>
-                    使用 MiniMax 2.1 模型，與所有免費版用戶共享記憶，每日 15 則訊息限制。
-                </div>
-            </div>
+            <h3 class="step-heading">1. 下載 E-Claw App</h3>
+            <p>到 Google Play Store 搜尋「<strong>e-claw</strong>」，安裝 E-Claw 電子蝦桌布 (OpenClaw)。</p>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Google Play Store 搜尋 E-Claw" class="step-image" id="img1">
+            <div class="note">下載連結放在文末。</div>
 
-            <div class="step">
-                <span class="step-number">04</span>
-                <h3>等待連接伺服器</h3>
-                <p>點擊後，App 會開始連接官方伺服器，畫面上會顯示「<strong>正在與機器人交握中...</strong>」的訊息。請耐心等候。</p>
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="連接伺服器中" class="step-image" id="img4">
-            </div>
+            <h3 class="step-heading">2. 找到「官方 Bot 租用」</h3>
+            <p>打開 App 後在主畫面往下滑，找到「<strong>官方 Bot 租用</strong>」按鈕並點進去。</p>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="E-Claw 主畫面" class="step-image" id="img2">
 
-            <div class="step">
-                <span class="step-number">05</span>
-                <h3>完成連接流程</h3>
-                <p>等待連接過程，畫面會顯示 Webhook 測試訊息。<strong>建議等整個流程完成後再離開頁面</strong>，確保連接穩定。</p>
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Webhook 測試" class="step-image" id="img5">
-                <div class="tip">
-                    <strong>⚠️ 重要提醒</strong>
-                    不要在連接過程中關閉 App 或切換到其他頁面，以免連接失敗。
-                </div>
-            </div>
+            <h3 class="step-heading">3. 選擇免費版</h3>
+            <p>進入租用頁面後會看到免費版和月租版兩個選項，選「<strong>免費版</strong>」然後點「<strong>使用免費版</strong>」。</p>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="選擇免費版" class="step-image" id="img3">
+            <div class="note">免費版使用 MiniMax 2.1 模型，與所有免費用戶共享記憶，每天 15 則訊息。</div>
 
-            <div class="step">
-                <span class="step-number">06</span>
-                <h3>看到龍蝦就成功了！</h3>
-                <p>當你看到畫面上出現龍蝦圖示，並顯示「<strong>Connected!</strong>」或「<strong>成功啦 🎉</strong>」時，就代表連接成功！現在你可以回到主頁開始使用了。</p>
-                <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="連接成功" class="step-image" id="img6">
-            </div>
-        </div>
+            <h3 class="step-heading">4. 等待伺服器連接</h3>
+            <p>點擊後 App 會開始連接伺服器，畫面會顯示「<strong>正在與機器人交握中...</strong>」，等一下就好。</p>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="連接伺服器中" class="step-image" id="img4">
 
-        <div class="success">
-            <div class="success-icon">🦞✨</div>
-            <h2>開始免費使用 OpenClaw！</h2>
-            <p style="color: #666; font-size: 1.1rem; margin-bottom: 20px;">
-                回到 E-Claw 主頁，點擊「<strong>聊天</strong>」按鈕，就可以開始與 OpenClaw AI 對話了！
-            </p>
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="開始聊天" class="step-image" id="img7" style="max-width: 350px; margin: 20px auto;">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="對話示範" class="step-image" id="img8" style="max-width: 350px; margin: 20px auto;">
-            
-            <div style="background: #f8f9fa; padding: 25px; border-radius: 15px; margin-top: 30px; text-align: left;">
-                <h3 style="color: var(--primary); margin-bottom: 15px; font-size: 1.3rem;">📝 使用小技巧</h3>
-                <ul style="color: #555; line-height: 1.8; padding-left: 20px;">
-                    <li>免費版每天有 15 則訊息額度，用完需等隔天重置</li>
-                    <li>記憶功能與所有免費用戶共享，不建議分享敏感資料</li>
-                    <li>MiniMax 2.1 模型表現相當不錯，適合日常對話和問題解答</li>
-                    <li>如果需要更多功能，可以考慮升級月租版（無限訊息 + 獨立記憶）</li>
-                </ul>
-            </div>
+            <h3 class="step-heading">5. 完成連接流程</h3>
+            <p>連接過程中畫面會跑一些 Webhook 測試訊息，建議等流程跑完再離開頁面。</p>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Webhook 測試" class="step-image" id="img5">
+            <div class="warning">連接過程中不要關閉 App 或切到其他頁面，不然可能會連接失敗。</div>
 
-            <a href="https://play.google.com/store/apps/details?id=com.hank.clawlive" class="cta">立即下載 E-Claw</a>
-        </div>
+            <h3 class="step-heading">6. 看到龍蝦圖示就完成了</h3>
+            <p>畫面出現龍蝦圖示並顯示「<strong>Connected!</strong>」或「<strong>成功啦</strong>」，代表連接成功，可以回主頁開始用了。</p>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="連接成功" class="step-image" id="img6">
+
+            <hr>
+
+            <h2>開始使用</h2>
+            <p>回到 E-Claw 主頁，點「<strong>聊天</strong>」就能跟 OpenClaw 對話了。</p>
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="聊天畫面" class="step-image" id="img7">
+            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="對話示範" class="step-image" id="img8">
+
+            <h2>幾點補充</h2>
+            <ul class="tips-list">
+                <li>免費版每天 15 則訊息，用完隔天重置。</li>
+                <li>記憶是所有免費用戶共用的，別丟敏感資料進去。</li>
+                <li>MiniMax 2.1 拿來日常對話、問問題夠用了。</li>
+                <li>如果覺得不夠用，可以考慮月租版，有無限訊息和獨立記憶。</li>
+            </ul>
+
+            <hr>
+
+            <p>E-Claw 下載連結：<a href="https://play.google.com/store/apps/details?id=com.hank.clawlive">Google Play Store</a></p>
+        </article>
 
         <footer>
-            <p>本教學僅供學習交流使用 | 圖片來源：E-Claw App 實際截圖</p>
-            <p>製作於 2026 年 2 月 | Made with ❤️</p>
+            <p>圖片來源：E-Claw App 截圖 ｜ 2026 年 2 月</p>
         </footer>
     </div>
 
     <script>
-        // 圖片載入
         const images = {
-            img1: '1000005528.png', // Google Play Store 搜尋
-            img2: '1000005517.png', // App 主畫面
-            img3: '1000005518.png', // 選擇免費版
-            img4: '1000005526.png', // 連接中
-            img5: '1000005527.png', // Webhook 測試
-            img6: '1000005519.png', // 連接成功
-            img7: '1000005524.png', // 聊天畫面 1
-            img8: '1000005525.png'  // 聊天畫面 2
+            img1: '1000005528.png',
+            img2: '1000005517.png',
+            img3: '1000005518.png',
+            img4: '1000005526.png',
+            img5: '1000005527.png',
+            img6: '1000005519.png',
+            img7: '1000005524.png',
+            img8: '1000005525.png'
         };
 
-        // 設定圖片路徑
         Object.keys(images).forEach(key => {
             const img = document.getElementById(key);
             if (img) {
                 img.src = images[key];
-                img.alt = `E-Claw 使用步驟 - ${key}`;
                 img.onerror = function() {
                     this.style.display = 'none';
                 };
             }
-        });
-
-        // 添加滾動動畫效果
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        document.querySelectorAll('.step, .intro, .success').forEach(el => {
-            observer.observe(el);
         });
     </script>
 </body>
