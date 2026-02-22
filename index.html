@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OpenClaw 免費使用教學 — 透過 E-Claw App 設定指南</title>
+    <title>E-Claw 電子蝦 — 使用指南</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
@@ -16,24 +16,159 @@
 
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-            background: #fff;
+            background: #f5f5f5;
             color: #222;
             line-height: 1.8;
         }
 
-        .container {
-            max-width: 680px;
-            margin: 0 auto;
+        /* ── Layout ── */
+        .page-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ── Sidebar ── */
+        .sidebar {
+            width: 220px;
+            background: #fff;
+            border-right: 1px solid #e0e0e0;
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header {
+            padding: 24px 20px 16px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+
+        .sidebar-header h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #111;
+            line-height: 1.4;
+        }
+
+        .sidebar-header .subtitle {
+            font-size: 0.75rem;
+            color: #888;
+            margin-top: 4px;
+        }
+
+        .sidebar-nav {
+            padding: 12px 0;
+            flex: 1;
+        }
+
+        .sidebar-nav button {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 20px;
+            border: none;
+            background: none;
+            font-family: inherit;
+            font-size: 0.9rem;
+            color: #555;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav button:hover {
+            background: #f7f7f7;
+            color: #222;
+        }
+
+        .sidebar-nav button.active {
+            background: #f0f4ff;
+            color: #1a73e8;
+            font-weight: 700;
+            border-left-color: #1a73e8;
+        }
+
+        .sidebar-footer {
+            padding: 12px 20px;
+            border-top: 1px solid #e0e0e0;
+            font-size: 0.75rem;
+            color: #aaa;
+        }
+
+        .sidebar-footer a {
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .sidebar-footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* ── Mobile menu toggle ── */
+        .menu-toggle {
+            display: none;
+            position: fixed;
+            top: 12px;
+            left: 12px;
+            z-index: 200;
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 8px 12px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            cursor: pointer;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+        }
+
+        .menu-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.3);
+            z-index: 90;
+        }
+
+        /* ── Main content ── */
+        .main-content {
+            flex: 1;
+            margin-left: 220px;
             padding: 40px 20px 60px;
         }
 
-        header {
+        .content-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 8px;
+            padding: 40px;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+        }
+
+        /* ── Tab panels ── */
+        .tab-panel {
+            display: none;
+        }
+
+        .tab-panel.active {
+            display: block;
+        }
+
+        /* ── Typography ── */
+        .content-inner header {
             margin-bottom: 32px;
             border-bottom: 1px solid #e0e0e0;
             padding-bottom: 24px;
         }
 
-        header h1 {
+        .content-inner header h1 {
             font-size: 1.75rem;
             font-weight: 700;
             color: #111;
@@ -46,7 +181,7 @@
             color: #888;
         }
 
-        article h2 {
+        .content-inner h2 {
             font-size: 1.3rem;
             font-weight: 700;
             color: #111;
@@ -54,22 +189,34 @@
             margin-bottom: 12px;
         }
 
-        article p {
+        .content-inner h2:first-child {
+            margin-top: 0;
+        }
+
+        .content-inner h3 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #111;
+            margin-top: 32px;
+            margin-bottom: 8px;
+        }
+
+        .content-inner p {
             font-size: 1rem;
             color: #333;
             margin-bottom: 16px;
         }
 
-        article a {
+        .content-inner a {
             color: #1a73e8;
             text-decoration: none;
         }
 
-        article a:hover {
+        .content-inner a:hover {
             text-decoration: underline;
         }
 
-        article strong {
+        .content-inner strong {
             font-weight: 700;
         }
 
@@ -134,86 +281,481 @@
             color: #999;
         }
 
-        @media (max-width: 600px) {
-            .container {
-                padding: 24px 16px 40px;
+        /* ── Feature table ── */
+        .feature-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0 24px;
+            font-size: 0.92rem;
+        }
+
+        .feature-table th,
+        .feature-table td {
+            text-align: left;
+            padding: 10px 12px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .feature-table th {
+            background: #f7f7f7;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .feature-table td:first-child {
+            white-space: nowrap;
+            font-weight: 700;
+            color: #222;
+        }
+
+        /* ── Code / pre blocks ── */
+        .code-block {
+            background: #1e1e1e;
+            color: #d4d4d4;
+            border-radius: 6px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            white-space: pre;
+        }
+
+        .arch-diagram {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 20px;
+            margin: 16px 0;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.78rem;
+            line-height: 1.5;
+            white-space: pre;
+            color: #333;
+        }
+
+        .file-tree {
+            background: #fafafa;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            padding: 16px 20px;
+            margin: 16px 0;
+            overflow-x: auto;
+            font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+            font-size: 0.82rem;
+            line-height: 1.6;
+            white-space: pre;
+            color: #333;
+        }
+
+        /* ── Bullet lists inside panels ── */
+        .content-list {
+            margin: 12px 0;
+            padding-left: 24px;
+            color: #333;
+        }
+
+        .content-list li {
+            margin-bottom: 8px;
+            line-height: 1.7;
+        }
+
+        /* ── Badge row ── */
+        .badge-row {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 0.72rem;
+            padding: 3px 8px;
+            border-radius: 3px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .badge-release { background: #2ea44f; }
+        .badge-license { background: #0969da; }
+        .badge-android { background: #3ddc84; color: #1a1a1a; }
+        .badge-railway { background: #7c3aed; }
+
+        /* ── Responsive ── */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.25s ease;
             }
 
-            header h1 {
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .menu-overlay.open {
+                display: block;
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 60px 12px 40px;
+            }
+
+            .content-inner {
+                padding: 24px 16px;
+                border-radius: 0;
+            }
+
+            .content-inner header h1 {
                 font-size: 1.4rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>如何免費使用 OpenClaw — E-Claw App 設定教學</h1>
-            <p class="meta">2026 年 2 月 ｜ 圖文教學</p>
-        </header>
+    <!-- Mobile menu button -->
+    <button class="menu-toggle" id="menuToggle">&#9776; 選單</button>
+    <div class="menu-overlay" id="menuOverlay"></div>
 
-        <article>
-            <h2>OpenClaw 是什麼？</h2>
-            <p>OpenClaw 是一個 AI Agent，可以理解為一個能夠自主執行任務的 AI 助手，而不只是單純的語言模型。透過 <strong>E-Claw</strong> 這款 App，你可以免費使用 OpenClaw 提供的功能。</p>
-            <p>具體來說，E-Claw 的「官方 Bot 租用」功能提供了一個免費方案，搭載 <strong>MiniMax 2.1</strong> 模型，每天有 15 則訊息的額度。以下是完整的設定流程。</p>
+    <div class="page-wrapper">
+        <!-- Sidebar -->
+        <nav class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <h2>E-Claw 電子蝦</h2>
+                <div class="subtitle">使用指南 &amp; 開發文件</div>
+            </div>
+            <div class="sidebar-nav">
+                <button class="active" data-tab="setup">設定教學</button>
+                <button data-tab="features">功能介紹</button>
+                <button data-tab="architecture">系統架構</button>
+                <button data-tab="quickstart">快速開始</button>
+                <button data-tab="structure">專案結構</button>
+                <button data-tab="testing">測試與文件</button>
+            </div>
+            <div class="sidebar-footer">
+                <a href="https://play.google.com/store/apps/details?id=com.hank.clawlive">Google Play 下載</a>
+                <br>
+                <a href="https://github.com/HankHuang0516/realbot">GitHub Repo</a>
+            </div>
+        </nav>
 
-            <hr>
+        <!-- Main content -->
+        <main class="main-content">
+            <div class="content-inner">
 
-            <h2>設定步驟</h2>
+                <!-- ══════════════ Tab 1: 設定教學 ══════════════ -->
+                <div class="tab-panel active" id="tab-setup">
+                    <header>
+                        <h1>如何免費使用 OpenClaw — E-Claw App 設定教學</h1>
+                        <p class="meta">2026 年 2 月 ｜ 圖文教學</p>
+                    </header>
 
-            <h3 class="step-heading">1. 下載 E-Claw App</h3>
-            <p>到 Google Play Store 搜尋「<strong>e-claw</strong>」，安裝 E-Claw 電子蝦桌布 (OpenClaw)。</p>
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Google Play Store 搜尋 E-Claw" class="step-image" id="img1">
-            <div class="note">下載連結放在文末。</div>
+                    <article>
+                        <h2>OpenClaw 是什麼？</h2>
+                        <p>OpenClaw 是一個 AI Agent，可以理解為一個能夠自主執行任務的 AI 助手，而不只是單純的語言模型。透過 <strong>E-Claw</strong> 這款 App，你可以免費使用 OpenClaw 提供的功能。</p>
+                        <p>具體來說，E-Claw 的「官方 Bot 租用」功能提供了一個免費方案，搭載 <strong>MiniMax 2.1</strong> 模型，每天有 15 則訊息的額度。以下是完整的設定流程。</p>
 
-            <h3 class="step-heading">2. 找到「官方 Bot 租用」</h3>
-            <p>打開 App 後在主畫面往下滑，找到「<strong>官方 Bot 租用</strong>」按鈕並點進去。</p>
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="E-Claw 主畫面" class="step-image" id="img2">
+                        <hr>
 
-            <h3 class="step-heading">3. 選擇免費版</h3>
-            <p>進入租用頁面後會看到免費版和月租版兩個選項，選「<strong>免費版</strong>」然後點「<strong>使用免費版</strong>」。</p>
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="選擇免費版" class="step-image" id="img3">
-            <div class="note">免費版使用 MiniMax 2.1 模型，與所有免費用戶共享記憶，每天 15 則訊息。</div>
+                        <h2>設定步驟</h2>
 
-            <h3 class="step-heading">4. 等待伺服器連接</h3>
-            <p>點擊後 App 會開始連接伺服器，畫面會顯示「<strong>正在與機器人交握中...</strong>」，等一下就好。</p>
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="連接伺服器中" class="step-image" id="img4">
+                        <h3 class="step-heading">1. 下載 E-Claw App</h3>
+                        <p>到 Google Play Store 搜尋「<strong>e-claw</strong>」，安裝 E-Claw 電子蝦桌布 (OpenClaw)。</p>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Google Play Store 搜尋 E-Claw" class="step-image" id="img1">
+                        <div class="note">下載連結放在文末。</div>
 
-            <h3 class="step-heading">5. 完成連接流程</h3>
-            <p>連接過程中畫面會跑一些 Webhook 測試訊息，建議等流程跑完再離開頁面。</p>
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Webhook 測試" class="step-image" id="img5">
-            <div class="warning">連接過程中不要關閉 App 或切到其他頁面，不然可能會連接失敗。</div>
+                        <h3 class="step-heading">2. 找到「官方 Bot 租用」</h3>
+                        <p>打開 App 後在主畫面往下滑，找到「<strong>官方 Bot 租用</strong>」按鈕並點進去。</p>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="E-Claw 主畫面" class="step-image" id="img2">
 
-            <h3 class="step-heading">6. 看到龍蝦圖示就完成了</h3>
-            <p>畫面出現龍蝦圖示並顯示「<strong>Connected!</strong>」或「<strong>成功啦</strong>」，代表連接成功，可以回主頁開始用了。</p>
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="連接成功" class="step-image" id="img6">
+                        <h3 class="step-heading">3. 選擇免費版</h3>
+                        <p>進入租用頁面後會看到免費版和月租版兩個選項，選「<strong>免費版</strong>」然後點「<strong>使用免費版</strong>」。</p>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="選擇免費版" class="step-image" id="img3">
+                        <div class="note">免費版使用 MiniMax 2.1 模型，與所有免費用戶共享記憶，每天 15 則訊息。</div>
 
-            <hr>
+                        <h3 class="step-heading">4. 等待伺服器連接</h3>
+                        <p>點擊後 App 會開始連接伺服器，畫面會顯示「<strong>正在與機器人交握中...</strong>」，等一下就好。</p>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="連接伺服器中" class="step-image" id="img4">
 
-            <h2>開始使用</h2>
-            <p>回到 E-Claw 主頁，點「<strong>聊天</strong>」就能跟 OpenClaw 對話了。</p>
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="聊天畫面" class="step-image" id="img7">
-            <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="對話示範" class="step-image" id="img8">
+                        <h3 class="step-heading">5. 完成連接流程</h3>
+                        <p>連接過程中畫面會跑一些 Webhook 測試訊息，建議等流程跑完再離開頁面。</p>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="Webhook 測試" class="step-image" id="img5">
+                        <div class="warning">連接過程中不要關閉 App 或切到其他頁面，不然可能會連接失敗。</div>
 
-            <h2>幾點補充</h2>
-            <ul class="tips-list">
-                <li>免費版每天 15 則訊息，用完隔天重置。</li>
-                <li>記憶是所有免費用戶共用的，別丟敏感資料進去。</li>
-                <li>MiniMax 2.1 拿來日常對話、問問題夠用了。</li>
-                <li>如果覺得不夠用，可以考慮月租版，有無限訊息和獨立記憶。</li>
-            </ul>
+                        <h3 class="step-heading">6. 看到龍蝦圖示就完成了</h3>
+                        <p>畫面出現龍蝦圖示並顯示「<strong>Connected!</strong>」或「<strong>成功啦</strong>」，代表連接成功，可以回主頁開始用了。</p>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="連接成功" class="step-image" id="img6">
 
-            <hr>
+                        <hr>
 
-            <p>E-Claw 下載連結：<a href="https://play.google.com/store/apps/details?id=com.hank.clawlive">Google Play Store</a></p>
-        </article>
+                        <h2>開始使用</h2>
+                        <p>回到 E-Claw 主頁，點「<strong>聊天</strong>」就能跟 OpenClaw 對話了。</p>
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="聊天畫面" class="step-image" id="img7">
+                        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNk+M9QDwADhgGAWjR9awAAAABJRU5ErkJggg==" alt="對話示範" class="step-image" id="img8">
 
-        <footer>
-            <p>圖片來源：E-Claw App 截圖 ｜ 2026 年 2 月</p>
-        </footer>
+                        <h2>幾點補充</h2>
+                        <ul class="tips-list">
+                            <li>免費版每天 15 則訊息，用完隔天重置。</li>
+                            <li>記憶是所有免費用戶共用的，別丟敏感資料進去。</li>
+                            <li>MiniMax 2.1 拿來日常對話、問問題夠用了。</li>
+                            <li>如果覺得不夠用，可以考慮月租版，有無限訊息和獨立記憶。</li>
+                        </ul>
+
+                        <hr>
+
+                        <p>E-Claw 下載連結：<a href="https://play.google.com/store/apps/details?id=com.hank.clawlive">Google Play Store</a></p>
+                    </article>
+
+                    <footer>
+                        <p>圖片來源：E-Claw App 截圖 ｜ 2026 年 2 月</p>
+                    </footer>
+                </div>
+
+                <!-- ══════════════ Tab 2: 功能介紹 ══════════════ -->
+                <div class="tab-panel" id="tab-features">
+                    <header>
+                        <h1>功能介紹</h1>
+                        <p class="meta">E-Claw 電子蝦 — 復古電子寵物 × AI 動態桌布</p>
+                    </header>
+
+                    <div class="badge-row">
+                        <span class="badge badge-android">Android</span>
+                        <span class="badge badge-license">MIT License</span>
+                        <span class="badge badge-railway">Railway Backend</span>
+                    </div>
+
+                    <p>把 90 年代電子雞的靈魂注入你的 Android 桌布——由 AI Bot 驅動，24/7 陪伴你。</p>
+
+                    <h2>功能特色</h2>
+
+                    <table class="feature-table">
+                        <thead>
+                            <tr>
+                                <th>功能</th>
+                                <th>說明</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>AI 電子寵物桌布</td>
+                                <td>最多 4 個 AI 驅動的實體，在你的動態桌布上自由活動</td>
+                            </tr>
+                            <tr>
+                                <td>OpenClaw Bot 整合</td>
+                                <td>透過 Webhook + Exec-curl 與 AI Bot 雙向溝通</td>
+                            </tr>
+                            <tr>
+                                <td>即時聊天</td>
+                                <td>長按桌布即可與實體對話，支援完整訊息歷程</td>
+                            </tr>
+                            <tr>
+                                <td>Push 通知</td>
+                                <td>Bot 主動推送訊息，instruction-first 格式</td>
+                            </tr>
+                            <tr>
+                                <td>Web 管理介面</td>
+                                <td>跨裝置管理實體、查看狀態、遠端控制</td>
+                            </tr>
+                            <tr>
+                                <td>裝置遙測</td>
+                                <td>結構化 debug buffer，AI 輔助問題排查</td>
+                            </tr>
+                            <tr>
+                                <td>帳號登入</td>
+                                <td>綁定 Google 帳號，重裝後自動恢復資料</td>
+                            </tr>
+                            <tr>
+                                <td>免費 / 付費方案</td>
+                                <td>內建 gatekeeper，15 則免費訊息 + 付費無限制</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <!-- 未來可在此處加入更多功能的詳細用法介紹 -->
+                </div>
+
+                <!-- ══════════════ Tab 3: 系統架構 ══════════════ -->
+                <div class="tab-panel" id="tab-architecture">
+                    <header>
+                        <h1>系統架構</h1>
+                        <p class="meta">Android App ↔ Backend ↔ OpenClaw Platform</p>
+                    </header>
+
+                    <h2>架構總覽</h2>
+                    <p>E-Claw 由三個主要部分組成：Android App、後端服務（Railway）、以及 OpenClaw AI 平台（Zeabur）。</p>
+
+                    <div class="arch-diagram">┌─────────────────────┐     ┌──────────────────────┐
+│   Android App       │     │   Web Portal         │
+│   (Kotlin)          │     │   (HTML/JS)          │
+│                     │     │                      │
+│  Live Wallpaper     │     │  Entity Management   │
+│  Chat UI            │◄────►  Bot Config          │
+│  Push Receiver      │     │  Telemetry Viewer    │
+└─────────┬───────────┘     └────────┬─────────────┘
+          │                          │
+          │    HTTPS / REST API      │
+          ▼                          ▼
+┌─────────────────────────────────────────────────┐
+│              Backend (Railway)                   │
+│              Node.js + Express                   │
+│                                                  │
+│  /api/bind      /api/broadcast   /api/transform  │
+│  /api/chat      /api/logs        /api/telemetry  │
+│                                                  │
+│         PostgreSQL (persistent store)            │
+└────────────────────────┬────────────────────────┘
+                         │  Webhook Push + exec+curl
+                         ▼
+              ┌──────────────────────┐
+              │  OpenClaw Platform   │
+              │  (Zeabur)            │
+              │                      │
+              │  AI Bot Instances    │
+              │  (up to 4 per device)│
+              └──────────────────────┘</div>
+
+                    <h2>核心設計</h2>
+                    <ul class="content-list">
+                        <li>每個裝置有 <strong>4 個 entity slots</strong>（0–3），可獨立綁定不同 Bot</li>
+                        <li><strong>Bots</strong> 透過 Webhook push（進入）+ exec+curl（POST /api/transform）進行通訊</li>
+                        <li><strong>Railway</strong> 在 push 到 <code>main</code> 時自動部署（監控 <code>backend/</code> 資料夾）</li>
+                    </ul>
+
+                    <!-- 未來可在此處加入更多架構細節與用法介紹 -->
+                </div>
+
+                <!-- ══════════════ Tab 4: 快速開始 ══════════════ -->
+                <div class="tab-panel" id="tab-quickstart">
+                    <header>
+                        <h1>快速開始</h1>
+                        <p class="meta">本地開發、部署、Android App 安裝</p>
+                    </header>
+
+                    <h2>先決條件</h2>
+                    <ul class="content-list">
+                        <li>Android 8.0+ 裝置</li>
+                        <li>Node.js 18+</li>
+                        <li>PostgreSQL（或使用 Railway 的託管 PostgreSQL）</li>
+                    </ul>
+
+                    <h2>本地後端開發</h2>
+                    <div class="code-block"># Clone the repo
+git clone https://github.com/HankHuang0516/realbot.git
+cd realbot/backend
+
+# Install dependencies
+npm install
+
+# Configure environment
+cp .env.example .env   # then fill in DATABASE_URL, etc.
+
+# Start dev server
+npm run dev
+# → Server running on http://localhost:3000</div>
+
+                    <h2>部署到 Railway</h2>
+                    <div class="code-block"># Connect repo to Railway (auto-deploys from backend/ on push to main)
+# Set environment variables in Railway dashboard:
+#   DATABASE_URL  PORT  NODE_ENV
+git push origin main</div>
+
+                    <h2>Android App 安裝</h2>
+                    <ol class="content-list">
+                        <li>從 <a href="https://github.com/HankHuang0516/realbot/releases/latest">GitHub Releases</a> 下載最新的 <code>.aab</code> / <code>.apk</code></li>
+                        <li>設定為 Live Wallpaper → Long Settings → 輸入你的 <code>deviceId</code></li>
+                        <li>打開 Web Portal 綁定 AI 實體</li>
+                    </ol>
+
+                    <!-- 未來可在此處加入更多開發與部署的用法介紹 -->
+                </div>
+
+                <!-- ══════════════ Tab 5: 專案結構 ══════════════ -->
+                <div class="tab-panel" id="tab-structure">
+                    <header>
+                        <h1>專案結構</h1>
+                        <p class="meta">realbot 原始碼目錄說明</p>
+                    </header>
+
+                    <h2>目錄總覽</h2>
+                    <div class="file-tree">realbot/
+├── app/                    # Android app (Kotlin)
+│   └── src/main/
+│       ├── java/           # App source code
+│       └── res/            # Resources, layouts, strings
+├── backend/                # Node.js backend (Railway)
+│   ├── index.js            # Express server entry point
+│   ├── public/             # Web Portal (HTML/JS/CSS)
+│   ├── device-telemetry.js # Telemetry buffer module
+│   └── tests/              # Regression test suite
+├── google_play/            # Store assets (icon, feature graphic)
+├── RELEASE_HISTORY.md      # Version history with commit hashes
+├── PRIVACY_POLICY.md       # Privacy policy
+└── CLAUDE.md               # AI assistant instructions</div>
+
+                    <h2>主要模組說明</h2>
+                    <ul class="content-list">
+                        <li><strong>app/</strong> — Android 應用程式，使用 Kotlin 開發，包含 Live Wallpaper、聊天介面、Push 接收器</li>
+                        <li><strong>backend/</strong> — Node.js + Express 後端，部署於 Railway，負責 API、資料庫、與 OpenClaw 平台通訊</li>
+                        <li><strong>backend/public/</strong> — Web Portal 前端，提供跨裝置的實體管理介面</li>
+                        <li><strong>backend/tests/</strong> — 回歸測試套件，確保 Bot API 與廣播功能正常運作</li>
+                        <li><strong>google_play/</strong> — Google Play Store 上架素材（圖標、功能圖片）</li>
+                    </ul>
+
+                    <!-- 未來可在此處加入更多結構細節與用法介紹 -->
+                </div>
+
+                <!-- ══════════════ Tab 6: 測試與文件 ══════════════ -->
+                <div class="tab-panel" id="tab-testing">
+                    <header>
+                        <h1>測試與文件</h1>
+                        <p class="meta">回歸測試、文件連結、貢獻指南</p>
+                    </header>
+
+                    <h2>回歸測試</h2>
+                    <div class="code-block"># Bot API response rate (target: 90%+)
+node backend/tests/test-bot-api-response.js
+
+# Full broadcast flow (delivery, speak-to, chat history)
+node backend/tests/test-broadcast.js</div>
+                    <div class="note">測試需要在 <code>backend/.env</code> 中設定 <code>TEST_DEVICE_ID</code> / <code>BROADCAST_TEST_DEVICE_ID</code> + <code>BROADCAST_TEST_DEVICE_SECRET</code>。</div>
+
+                    <h2>相關文件</h2>
+                    <ul class="content-list">
+                        <li><a href="https://github.com/HankHuang0516/realbot/blob/main/PRIVACY_POLICY.md">Privacy Policy 隱私權政策</a></li>
+                        <li><a href="https://github.com/HankHuang0516/realbot/blob/main/backend/README.md">Backend API Reference</a></li>
+                        <li><a href="https://github.com/HankHuang0516/realbot/blob/main/backend/E-claw_mcp_skill.md">MCP Skill Guide</a></li>
+                        <li><a href="https://github.com/HankHuang0516/realbot/blob/main/RELEASE_HISTORY.md">Release History</a></li>
+                    </ul>
+
+                    <h2>貢獻指南</h2>
+                    <p>這是一個個人/實驗性專案，歡迎提交 Issue 和建議。</p>
+                    <ol class="content-list">
+                        <li>Fork 此 repo</li>
+                        <li>建立 feature branch：<code>git checkout -b feat/your-feature</code></li>
+                        <li>提交你的變更</li>
+                        <li>先開 Issue 討論，再發 PR</li>
+                    </ol>
+                    <div class="warning"><strong>Feature Parity Rule</strong>：所有面向使用者的功能必須在 Web Portal 和 Android App 之間保持同步。</div>
+
+                    <h2>授權</h2>
+                    <p><a href="https://github.com/HankHuang0516/realbot/blob/main/LICENSE">MIT License</a> &copy; 2026 HankHuang0516</p>
+
+                    <!-- 未來可在此處加入更多測試與文件的用法介紹 -->
+                </div>
+
+            </div>
+        </main>
     </div>
 
     <script>
+        // Image loading (for setup tab)
         const images = {
             img1: '1000005528.png',
             img2: '1000005517.png',
@@ -233,6 +775,44 @@
                     this.style.display = 'none';
                 };
             }
+        });
+
+        // Tab switching
+        const tabButtons = document.querySelectorAll('.sidebar-nav button');
+        const tabPanels = document.querySelectorAll('.tab-panel');
+
+        tabButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const tabId = btn.getAttribute('data-tab');
+
+                tabButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+
+                tabPanels.forEach(panel => panel.classList.remove('active'));
+                document.getElementById('tab-' + tabId).classList.add('active');
+
+                // Close mobile menu
+                sidebar.classList.remove('open');
+                menuOverlay.classList.remove('open');
+
+                // Scroll to top of content
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+
+        // Mobile menu
+        const menuToggle = document.getElementById('menuToggle');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const sidebar = document.getElementById('sidebar');
+
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            menuOverlay.classList.toggle('open');
+        });
+
+        menuOverlay.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            menuOverlay.classList.remove('open');
         });
     </script>
 </body>
