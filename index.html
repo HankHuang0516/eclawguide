@@ -384,6 +384,89 @@
         .badge-android { background: #3ddc84; color: #1a1a1a; }
         .badge-railway { background: #7c3aed; }
 
+        /* ── Mission Control feature cards ── */
+        .mc-screenshot {
+            width: 100%;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin: 16px 0 32px;
+            display: block;
+        }
+
+        .mc-section {
+            margin-top: 40px;
+            padding: 24px;
+            background: #fafbfc;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        .mc-section h3 {
+            margin-top: 0 !important;
+            font-size: 1.15rem;
+            color: #111;
+            margin-bottom: 12px;
+        }
+
+        .mc-section p {
+            font-size: 0.92rem;
+            color: #444;
+            margin-bottom: 12px;
+        }
+
+        .mc-feature-list {
+            margin: 8px 0 0;
+            padding-left: 20px;
+            color: #333;
+            font-size: 0.92rem;
+        }
+
+        .mc-feature-list li {
+            margin-bottom: 6px;
+            line-height: 1.7;
+        }
+
+        .mc-label {
+            display: inline-block;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 3px;
+            font-weight: 700;
+            margin-left: 8px;
+            vertical-align: middle;
+        }
+
+        .mc-label-user { background: #e3f2fd; color: #1565c0; }
+        .mc-label-bot { background: #fce4ec; color: #c62828; }
+        .mc-label-shared { background: #fff3e0; color: #e65100; }
+
+        .mc-api-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 12px 0;
+            font-size: 0.85rem;
+        }
+
+        .mc-api-table th,
+        .mc-api-table td {
+            text-align: left;
+            padding: 8px 10px;
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .mc-api-table th {
+            background: #f0f0f0;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .mc-api-table code {
+            background: #f5f5f5;
+            padding: 1px 5px;
+            border-radius: 3px;
+            font-size: 0.8rem;
+        }
+
         /* ── Responsive ── */
         @media (max-width: 768px) {
             .sidebar {
@@ -437,6 +520,7 @@
                 <button data-tab="architecture">系統架構</button>
                 <button data-tab="quickstart">快速開始</button>
                 <button data-tab="structure">專案結構</button>
+                <button data-tab="mission">任務中心</button>
                 <button data-tab="testing">測試與文件</button>
             </div>
             <div class="sidebar-footer">
@@ -709,6 +793,169 @@ git push origin main</div>
                     </ul>
 
                     <!-- 未來可在此處加入更多結構細節與用法介紹 -->
+                </div>
+
+                <!-- ══════════════ Tab: 任務中心 ══════════════ -->
+                <div class="tab-panel" id="tab-mission">
+                    <header>
+                        <h1>任務中心 (Mission Control)</h1>
+                        <p class="meta">Web 管理面板 — 管理 Bot 的待辦、任務、筆記、Skills、靈魂、規則</p>
+                    </header>
+
+                    <p>Mission Control 是 E-Claw 的 Web 管理面板，讓你透過瀏覽器跨裝置管理 AI Bot 的所有行為。同一裝置上的所有 Entity（最多 4 個）<strong>共享同一個 Dashboard</strong>，可互相協作。</p>
+
+                    <img src="mission-control-web.png" alt="E-Claw Mission Control Web 介面截圖" class="mc-screenshot" id="mcScreenshot">
+
+                    <!-- ── 1. 待辦事項 ── -->
+                    <div class="mc-section">
+                        <h3>待辦事項 (TODO) <span class="mc-label mc-label-shared">User + Bot 共用</span></h3>
+                        <p>待辦事項列表用來管理「尚未開始」的工作項目。使用者可以從 Web 面板新增，Bot 也可以透過 API 自行新增。</p>
+                        <ul class="mc-feature-list">
+                            <li><strong>新增待辦</strong> — 點擊「+ 新增」按鈕建立項目，可設定標題、描述、優先順序（LOW / MEDIUM / HIGH / URGENT）</li>
+                            <li><strong>指派 Bot</strong> — 每個待辦可指派給特定 Entity（如 Entity 0、Entity 1），或同時指派給多個 Entity</li>
+                            <li><strong>開始任務</strong> — 將待辦移至「任務列表」（狀態轉為 IN_PROGRESS）</li>
+                            <li><strong>直接完成</strong> — 跳過任務階段，直接標記為完成並移至「已完成」</li>
+                            <li><strong>刪除待辦</strong> — 移除不再需要的項目</li>
+                            <li><strong>Bot 自動操作</strong> — Bot 可透過 API 新增、更新、刪除待辦，並即時反映在面板上</li>
+                        </ul>
+                        <table class="mc-api-table">
+                            <thead><tr><th>操作</th><th>API</th></tr></thead>
+                            <tbody>
+                                <tr><td>新增</td><td><code>POST /api/mission/todo/add</code></td></tr>
+                                <tr><td>更新</td><td><code>POST /api/mission/todo/update</code></td></tr>
+                                <tr><td>開始</td><td><code>POST /api/mission/todo/start</code></td></tr>
+                                <tr><td>完成</td><td><code>POST /api/mission/todo/done</code></td></tr>
+                                <tr><td>刪除</td><td><code>POST /api/mission/todo/delete</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- ── 2. 任務列表 ── -->
+                    <div class="mc-section">
+                        <h3>任務列表 (Mission List) <span class="mc-label mc-label-shared">User + Bot 共用</span></h3>
+                        <p>顯示目前「進行中」的任務。當一個待辦項目被「開始」後，會自動移到這裡，狀態為 IN_PROGRESS。</p>
+                        <ul class="mc-feature-list">
+                            <li><strong>狀態追蹤</strong> — 即時顯示每個任務的執行狀態，Bot 處理中會自動更新</li>
+                            <li><strong>優先順序排序</strong> — 任務按 URGENT → HIGH → MEDIUM → LOW 排序顯示</li>
+                            <li><strong>指派資訊</strong> — 顯示該任務由哪個 Entity 負責執行</li>
+                            <li><strong>標記完成</strong> — 任務完成後移至「已完成」區塊</li>
+                            <li><strong>退回待辦</strong> — 如果任務需要暫停，可退回待辦清單</li>
+                        </ul>
+                    </div>
+
+                    <!-- ── 3. 已完成 ── -->
+                    <div class="mc-section">
+                        <h3>已完成 (Done)</h3>
+                        <p>所有已完成的待辦與任務會歸檔到這裡，附帶完成時間戳記，方便追蹤歷史紀錄。</p>
+                        <ul class="mc-feature-list">
+                            <li><strong>完成紀錄</strong> — 每個完成項目都記錄 <code>completedAt</code> 時間戳</li>
+                            <li><strong>歷史回顧</strong> — 方便確認 Bot 過去執行了哪些任務</li>
+                            <li><strong>清理功能</strong> — 可刪除不再需要的歷史紀錄</li>
+                        </ul>
+                    </div>
+
+                    <!-- ── 4. 筆記 ── -->
+                    <div class="mc-section">
+                        <h3>筆記 (Notes) <span class="mc-label mc-label-shared">User + Bot 共用</span></h3>
+                        <p>筆記功能讓使用者和 Bot 都能記錄參考資訊。適合存放備忘、偏好設定、對話摘要等。</p>
+                        <ul class="mc-feature-list">
+                            <li><strong>新增筆記</strong> — 點擊「+ 新增」建立筆記，包含標題、內容、分類（category）</li>
+                            <li><strong>分類管理</strong> — 可自訂分類標籤（預設 <code>general</code>），方便歸類</li>
+                            <li><strong>Bot 讀寫</strong> — Bot 可透過 API 讀取、新增、更新、刪除筆記</li>
+                            <li><strong>跨 Entity 共享</strong> — 同一裝置的所有 Entity 都能存取所有筆記</li>
+                            <li><strong>用途範例</strong> — 使用者偏好紀錄、對話摘要、Bot 工作日誌、設定備忘</li>
+                        </ul>
+                        <table class="mc-api-table">
+                            <thead><tr><th>操作</th><th>API</th></tr></thead>
+                            <tbody>
+                                <tr><td>列表</td><td><code>GET /api/mission/notes</code></td></tr>
+                                <tr><td>新增</td><td><code>POST /api/mission/note/add</code></td></tr>
+                                <tr><td>更新</td><td><code>POST /api/mission/note/update</code></td></tr>
+                                <tr><td>刪除</td><td><code>POST /api/mission/note/delete</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- ── 5. Skills ── -->
+                    <div class="mc-section">
+                        <h3>Skills <span class="mc-label mc-label-bot">Bot 能力擴充</span></h3>
+                        <p>Skills 定義 Bot 可以使用的外部技能或 API 文件。每個 Skill 可附帶文件 URL，讓 Bot 學習如何使用該技能。</p>
+                        <ul class="mc-feature-list">
+                            <li><strong>新增 Skill</strong> — 點擊「+ Add」建立技能，設定標題、文件 URL</li>
+                            <li><strong>文件連結</strong> — 每個 Skill 可附帶 <code>url</code> 指向 API 文件或使用說明</li>
+                            <li><strong>指派 Entity</strong> — 可指定哪些 Entity 具備此技能（如只有 Entity 0 有天氣查詢能力）</li>
+                            <li><strong>內建 Skill</strong> — 預設包含「E-Claw API Skill」，指向 E-Claw 自身的 API 文件</li>
+                            <li><strong>多技能管理</strong> — 一個 Bot 可擁有多個 Skill，擴展不同能力</li>
+                        </ul>
+                        <table class="mc-api-table">
+                            <thead><tr><th>操作</th><th>API</th></tr></thead>
+                            <tbody>
+                                <tr><td>新增</td><td><code>POST /api/mission/skill/add</code></td></tr>
+                                <tr><td>刪除</td><td><code>POST /api/mission/skill/delete</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- ── 6. 靈魂 ── -->
+                    <div class="mc-section">
+                        <h3>靈魂 (Soul / 人設) <span class="mc-label mc-label-user">User 定義人格</span></h3>
+                        <p>靈魂定義 Bot 的人格特質與溝通風格。使用者可以為每個 Entity 指定不同的人格設定，隨時切換啟用或停用。</p>
+                        <ul class="mc-feature-list">
+                            <li><strong>新增靈魂</strong> — 點擊「+ 新增」建立人格設定，填寫名稱與人格描述</li>
+                            <li><strong>人格描述</strong> — 以自然語言描述 Bot 的性格、語氣、回應風格（如「溫暖、有耐心、用鼓勵的語氣說話」）</li>
+                            <li><strong>範本選擇</strong> — 可使用預設範本（如 <code>friendly</code>、<code>professional</code>），也可完全自訂</li>
+                            <li><strong>啟用 / 停用</strong> — 每個靈魂有 <code>isActive</code> 開關，使用者可隨時切換</li>
+                            <li><strong>多靈魂混合</strong> — 當多個靈魂同時啟用時，Bot 會融合所有啟用靈魂的特質來回應</li>
+                            <li><strong>指派 Entity</strong> — 不同 Entity 可以有不同的人格設定（如 Entity 0 是「友善助手」，Entity 1 是「嚴謹分析師」）</li>
+                            <li><strong>即時生效</strong> — 修改後 Bot 在下次回應時立即採用新人格</li>
+                        </ul>
+                        <table class="mc-api-table">
+                            <thead><tr><th>操作</th><th>API</th></tr></thead>
+                            <tbody>
+                                <tr><td>列表</td><td><code>GET /api/mission/souls</code></td></tr>
+                                <tr><td>新增</td><td><code>POST /api/mission/soul/add</code></td></tr>
+                                <tr><td>更新</td><td><code>POST /api/mission/soul/update</code></td></tr>
+                                <tr><td>刪除</td><td><code>POST /api/mission/soul/delete</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- ── 7. 規則 (Workflow) ── -->
+                    <div class="mc-section">
+                        <h3>規則 / Workflow <span class="mc-label mc-label-user">User 定義行為</span></h3>
+                        <p>規則系統讓使用者為 Bot 制定行為準則和自動化工作流程。可定義多種類型的規則並指派給不同 Entity。</p>
+                        <ul class="mc-feature-list">
+                            <li><strong>新增規則</strong> — 點擊「+ 新增」建立規則，設定名稱、描述、規則類型</li>
+                            <li><strong>規則類型</strong> — 支援 6 種類型：
+                                <ul style="margin-top: 4px;">
+                                    <li><code>WORKFLOW</code> — 一般工作流程規則</li>
+                                    <li><code>CODE_REVIEW</code> — 程式碼審查相關規則</li>
+                                    <li><code>COMMUNICATION</code> — 溝通與回應規則（如「必須用英文回覆」）</li>
+                                    <li><code>DEPLOYMENT</code> — 部署相關規則</li>
+                                    <li><code>SYNC</code> — 資料同步規則</li>
+                                    <li><code>HEARTBEAT</code> — 定期檢查規則</li>
+                                </ul>
+                            </li>
+                            <li><strong>啟用 / 停用</strong> — 每個規則有 <code>isEnabled</code> 開關，停用的規則 Bot 會完全忽略</li>
+                            <li><strong>指派多個 Entity</strong> — 一個規則可同時套用到多個 Entity（如讓所有 Entity 都遵守某個溝通規則）</li>
+                            <li><strong>跨 Entity 管理</strong> — 任何 Entity 都可以新增或修改規則，不限於自己被指派的</li>
+                        </ul>
+                        <table class="mc-api-table">
+                            <thead><tr><th>操作</th><th>API</th></tr></thead>
+                            <tbody>
+                                <tr><td>新增</td><td><code>POST /api/mission/rule/add</code></td></tr>
+                                <tr><td>更新</td><td><code>POST /api/mission/rule/update</code></td></tr>
+                                <tr><td>刪除</td><td><code>POST /api/mission/rule/delete</code></td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <hr>
+
+                    <h2>Dashboard 同步機制</h2>
+                    <p>Mission Control Dashboard 使用<strong>版本號（version）</strong>做樂觀鎖定。每次操作都會自動遞增版本號，Bot 可透過定期輪詢 <code>GET /api/mission/dashboard</code> 比對版本號來偵測使用者的靜默修改。</p>
+                    <div class="note">建議 Bot 每 15 分鐘輪詢一次 Dashboard，比對 <code>version</code> 欄位，若版本變更則重新讀取所有項目。這能確保 Bot 即時回應使用者在 Web 面板上的操作。</div>
+
                 </div>
 
                 <!-- ══════════════ Tab 6: 測試與文件 ══════════════ -->
